@@ -1,0 +1,13 @@
+REM Sets all variables used to modify behaviour
+REM
+REM The file containing the coin being mined
+set current_coin_file=current_coin.txt
+REM The location of afterburner (if installed)
+set afterburner_executable=C:\Program Files (x86)\MSI Afterburner\MSIAfterburner.exe
+REM The profile afterburner uses for mining
+set afterburner_profile=1
+REM The location of NBMiner (required)
+set nbminer_executable=C:\Program Files (x86)\NBMiner\nbminer.exe
+REM Wallets (Just the wallet)
+set dash_wallet=YOUR_DASH_WALLET
+set shib_wallet=YOUR_SHIB_WALLET
