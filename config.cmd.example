@@ -11,3 +11,5 @@ set nbminer_executable=C:\Program Files (x86)\NBMiner\nbminer.exe
 REM Wallets (Just the wallet)
 set dash_wallet=YOUR_DASH_WALLET
 set shib_wallet=YOUR_SHIB_WALLET
+REM Worker (Set the name of your worker)
+set worker_name=YOUR_WORKER_NAME
