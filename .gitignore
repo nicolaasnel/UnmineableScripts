@@ -2,5 +2,5 @@
 logs/
 
 # Config
-config.cmd
-current_coin.txt
+conf/config.cmd
+conf/current_coin.txt
