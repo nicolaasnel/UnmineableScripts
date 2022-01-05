@@ -37,7 +37,6 @@ if %alternate_coin%==yes (call scripts/alternate_coin.bat)
 if exist %current_coin_file% (set /p coin=<%current_coin_file%) else (set coin=DASH)
 if not %c%=="" (set coin=%c%)
 
-goto :skip_openrgb
 if "%afterburner_executable%"=="" (echo INFO: Afterburner not specified, skipping... && goto :skip_afterburner)
 if not exist "%afterburner_executable%" (echo INFO: Afterburner not found, skipping... && goto :skip_afterburner)
 call "%afterburner_executable%" -Profile%afterburner_mining_profile%
