@@ -7,13 +7,18 @@ The script will also attempt to set the MSI Afterburner and OpenRGB profile resp
 
 ## Usage
 Usage:
+```
   .\start_mining.bat -c DASH -a ethash
+  .\stop_mining.bat
+```
 
 Options:
+```
   --help                     | Show help
   -s [yes/no]                | Switch coin on startup (default no)
   -a [ethash/etchash/kawpow] | Algo to use when mining (default kawpow)
   -c [DASH/SHIB/BTC/etc...]  | Coin to be paid out, wallet must be in config (default based on config)
+```
 
 ## Getting started
 1. Running `.\start_mining.bat` for the first time will trigger a setup process that will query your payout coins, wallets as well as the location of the various executables to be used. Most importantly [NBMiner](https://github.com/NebuTech/NBMiner) which can be downloaded from their GitHub page. Setup can be run again by deleting `conf/config.cmd` and re-running the start script.
