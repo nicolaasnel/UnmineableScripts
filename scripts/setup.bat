@@ -4,26 +4,33 @@ set config_file=conf/config.cmd
 
 echo What coins do you want to get paid out in? eg. BTC (https://unmineable.com/coins)
 set /p coins="Enter all coins separated by a space: "
-echo set coin_list=%coins%> %config_file%
+
+echo set current_coin_file=conf\current_coin.txt >%config_file%
+set current_coin_file=conf\current_coin.txt
+
+IF EXIST %current_coin_file% DEL /F %current_coin_file%
 
 for %%a in (%coins%) do ( 
- set /p wallet="Enter your wallet address for %%a: "
- SETLOCAL EnableDelayedExpansion
- echo set %%a_wallet=!wallet!>> %config_file%
- ENDLOCAL
+  echo %%a>>%current_coin_file%
+  SETLOCAL EnableDelayedExpansion
+  set var_wallet=%%a_wallet
+  
+  >nul find "set !var_wallet!=" %config_file% || (
+   set /p wallet="Enter your wallet address for %%a: "
+   echo set %%a_wallet=!wallet!>> %config_file%
+  )
+ 
+  ENDLOCAL
 )
 
 set /p worker="Enter the worker name to reflect on the pool (default %ComputerName%): "
 if "%worker%"=="" (set worker=%ComputerName%)
 echo set worker_name=%worker%>> %config_file%
 
-echo Enter the location where NBMiner is installed.
-echo Leave blank for default (C:\Program Files (x86)\NBMiner\nbminer.exe)
-set /p miner_exe="MSI Afterburner install location: "
-if "%miner_exe%"=="" (set "miner_exe=C:\Program Files (x86)\NBMiner\nbminer.exe")
+echo Downloading NBMinder to NBMiner\nbminer.exe if it does not EXIST
+if not exist "NBMiner\nbminer.exe" (call scripts/download_miner.bat)
+set "miner_exe=NBMiner\nbminer.exe"
 echo set nbminer_executable=%miner_exe%>> %config_file%
-
-echo set current_coin_file=conf/current_coin.txt >> %config_file%
 
 echo Enter the location where MSI afterburner is installed.
 echo Leave blank for not installed or default (C:\Program Files (x86)\MSI Afterburner\MSIAfterburner.exe)
@@ -52,3 +59,7 @@ if "%openrgb_mining%"=="" (set openrgb_mining=mining)
 set /p openrgb_default="OpenRGB default (idle) profile (default default): "
 if "%openrgb_default%"=="" (set openrgb_default=default)
 (echo set openrgb_default_profile=%openrgb_default%)>> %config_file%
+
+echo :: Set custom NBMiner options here ie.>> %config_file%
+echo :: set nbminer_options=-lhr_mode 1 -lhr 70>> %config_file%
+echo set nbminer_options=>> %config_file%

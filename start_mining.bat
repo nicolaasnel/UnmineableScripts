@@ -4,7 +4,8 @@ pushd %~dp0
 
 set a=kawpow
 set c=""
-set s=no
+set s=
+set first_run=0
 
 if "%1"=="--help" (goto :usage)
 
@@ -25,13 +26,15 @@ if not exist "conf/config.cmd" (
   echo PLEASE COMPLETE SETUP
   echo:
   call scripts/setup.bat
+  set first_run=1
 )
 
 call conf/config.cmd
 
 if "%nbminer_executable%"=="" (echo ERROR: NBminer executable not set && goto :usage) 
 if not exist "%nbminer_executable%" (echo ERROR: NBMiner not found (%nbminer_executable%) && goto :usage)
-if "%s%"=="" (set alternate_coin=no) else (set alternate_coin=%s%)
+if "%s%"=="" (set alternate_coin=yes) else (set alternate_coin=%s%)
+if "%first_run%"=="1" (set alternate_coin=no)
 
 if %alternate_coin%==yes (call scripts/alternate_coin.bat)
 if exist %current_coin_file% (set /p coin=<%current_coin_file%) else (set coin=DASH)
