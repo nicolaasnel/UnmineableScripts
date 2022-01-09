@@ -1,5 +1,5 @@
 # UnminableAlternatingStart
-A simple windows batch script to start mining a different coin every day
+A simple windows batch script to start mining a different coin every day (using a graphics card)
  
 This was intended to be used via scheduled tasks to startup a different payout method daily as a fun project.
 
