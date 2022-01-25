@@ -61,5 +61,5 @@ if "%openrgb_default%"=="" (set openrgb_default=default)
 (echo set openrgb_default_profile=%openrgb_default%)>> %config_file%
 
 echo :: Set custom NBMiner options here ie.>> %config_file%
-echo :: set nbminer_options=-lhr_mode 1 -lhr 70>> %config_file%
+echo :: set nbminer_options=--lhr-mode 1 --lhr 70 -cclock @1020 --mclock +1250>> %config_file%
 echo set nbminer_options=>> %config_file%
