@@ -42,3 +42,4 @@ Options:
 1. The coins entered in the setup will be alternated in the order they were added each time the script is run, the same coin can be added multiple times, but only one wallet per coin is supported.
 1. Task scheduler can be used to start/stop mining by scheduling the `start_mining.bat` and the `stop_mining.bat` respectively.
 1. Custom options can be passed to NBMiner by adding them to conf/config.cmd as `set nbminer_option=your options here`
+1. After initial setup, the `conf/current_coin.txt` file can be amended to update the order and frequency of the coins being mined.
