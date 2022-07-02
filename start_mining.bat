@@ -50,6 +50,7 @@ if not exist "%openrgb_executable%" (echo INFO: OpenRGB not found, skipping... &
 call "%openrgb_executable%" --profile %openrgb_mining_profile%.orp
 :skip_openrgb
 
+:: start "" "D:\Mining\Programs\MoneroGUIWallet\Monero GUI Wallet\run_daemon.bat"
 call scripts/miner.bat %coin% %a%
 exit
 

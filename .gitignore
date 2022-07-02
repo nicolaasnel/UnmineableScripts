@@ -6,5 +6,6 @@ conf/config.cmd
 conf/current_coin.txt
 
 #External
+TONMiner
 NBMiner
 lolMiner

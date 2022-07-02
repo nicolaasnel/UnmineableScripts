@@ -6,6 +6,9 @@ call conf/config.cmd
 
 taskkill /F /IM msedge.exe
 taskkill /F /IM nbminer.exe
+taskkill /F /IM lolMiner.exe
+taskkill /F /IM TON-Stratum-Miner.exe
+taskkill /F /IM monerod.exe
 
 if "%afterburner_executable%"=="" (echo INFO: Afterburner not specified, skipping... && goto :skip_afterburner)
 if not exist "%afterburner_executable%" (echo INFO: Afterburner not found, skipping... && goto :skip_afterburner)
