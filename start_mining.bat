@@ -2,6 +2,8 @@
 
 pushd %~dp0
 
+start
+
 set a=kawpow
 set c=""
 set s=
@@ -31,7 +33,36 @@ if not exist "conf/config.cmd" (
 
 call conf/config.cmd
 
-if "%nbminer_executable%"=="" (echo ERROR: NBminer executable not set && goto :usage) 
+@REM setlocal EnableDelayedExpansion
+
+@REM set "pythonScript=extract_state.py"
+
+@REM for /F %%a in ('python "%pythonScript%"') do (
+@REM     set "result=%%a"
+@REM )
+
+@REM echo Solar power is %result%
+@REM if "%result%"=="off" (
+@REM    if "%afterburner_executable%"=="" (echo INFO: Afterburner not specified, skipping... && goto :skip_afterburner1)
+@REM    if not exist "%afterburner_executable%" (echo INFO: Afterburner not found, skipping... && goto :skip_afterburner1)
+@REM    call "%afterburner_executable%" -Profile%afterburner_default_profile%
+@REM    :skip_afterburner1
+@REM    if "%openrgb_executable%"=="" (echo INFO: OpenRGB not specified, skipping... && goto :skip_openrgb1)
+@REM    if not exist "%openrgb_executable%" (echo INFO: OpenRGB not found, skipping... && goto :skip_openrgb1)
+@REM    call "%openrgb_executable%" --profile %openrgb_default_profile%.orp
+@REM    :skip_openrgb1
+@REM    pause
+@REM    exit
+@REM )
+@REM endlocal
+
+
+set "pythonScript=set_state.py"
+python "%pythonScript%" "starting" "%ha_url%" "%ha_token%"
+powershell.exe -Command "Enable-ScheduledTask -TaskName 'Mining Manager'"
+powershell.exe -Command "Start-ScheduledTask -TaskName 'Mining Manager'"
+
+if "%nbminer_executable%"=="" (echo ERROR: NBminer executable not set && goto :usage)
 if not exist "%nbminer_executable%" (echo ERROR: NBMiner not found (%nbminer_executable%) && goto :usage)
 if "%s%"=="" (set alternate_coin=yes) else (set alternate_coin=%s%)
 if "%first_run%"=="1" (set alternate_coin=no)
@@ -50,9 +81,14 @@ if not exist "%openrgb_executable%" (echo INFO: OpenRGB not found, skipping... &
 call "%openrgb_executable%" --profile %openrgb_mining_profile%.orp
 :skip_openrgb
 
-:: start "" "D:\Mining\Programs\MoneroGUIWallet\Monero GUI Wallet\run_daemon.bat"
-call scripts/miner.bat %coin% %a%
-exit
+if "%monero_enabled%"=="true" (
+   start call scripts/monero_daemon.bat
+   start call scripts/monero_p2pool_daemon.bat
+   start call scripts/monero_xmrig.bat
+)
+
+scripts/miner.bat %coin% %a%
+exit 0;
 
 :usage
 echo:
@@ -66,4 +102,4 @@ echo ^  -a [ethash/etchash/kawpow] ^| Algo to use when mining (default kawpow)
 echo ^  -c [DASH/SHIB/BTC/etc...]  ^| Coin to be paid out, wallet must be in config (default based on config)
 echo:
 
-exit
+exit 0;

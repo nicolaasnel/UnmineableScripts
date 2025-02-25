@@ -4,8 +4,11 @@ logs/
 # Config
 conf/config.cmd
 conf/current_coin.txt
+extract_state.py
 
 #External
 TONMiner
 NBMiner
 lolMiner
+monero
+p2pool*
