@@ -6,8 +6,8 @@ REM Check the output and execute corresponding batch file
 IF "%OUTPUT%"=="stop_mining" (
     start "" cmd /k stop_mining.bat
 ) ELSE IF "%OUTPUT%"=="start_mining" (
-    start "" cmd /k start_mining.bat -s yes -a kawpow
-  ELSE IF "night_time"
+    start "" cmd /k start_mining.bat -s yes -a ZEL
+) ELSE IF "%OUTPUT%"=="night_time" (
     start "" cmd /k stop_mining.bat disabled
 ) ELSE (
     ECHO Unknown output: %OUTPUT%
